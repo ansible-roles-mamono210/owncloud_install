@@ -1,0 +1,28 @@
+---
+- name: Verify
+  gather_facts: false
+  hosts: localhost
+
+  tasks:
+    - name: Execute selenium
+      ansible.builtin.command:
+        cmd: python screenshot.py
+      args:
+        chdir: files
+      changed_when: false
+      delegate_to: localhost
+
+    - name: Check OS version
+      ansible.builtin.command:
+        cmd: cat /etc/redhat-release
+      become: yes
+      changed_when: false
+      delegate_to: wordpress
+      connection: docker
+      register: os_version
+      vars:
+        ansible_user: ansible
+
+    - name: Show OS version
+      ansible.builtin.debug:
+        var: os_version
