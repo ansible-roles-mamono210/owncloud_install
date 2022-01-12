@@ -10,6 +10,11 @@ platforms:
   - name: db
     image: mysql:5.7
     networks: molecule_owncloud
+    env:
+      mysql_root_password: someowncloud
+      mysql_database: owncloud
+      mysql_user: owncloud
+      mysql_password: owncloud
   - name: selenium
     image: selenium/standalone-firefox:latest
     networks: molecule_owncloud
@@ -20,23 +25,16 @@ provisioner:
       callbacks_enabled: ansible.posix.profile_tasks
   connection_options:
     php_packages:
-      - php
+      - php-curl
       - php-gd
-      - php-gmp
       - php-intl
+      - php-json
       - php-ldap
       - php-mbstring
-      - php-mcrypt
       - php-mysqlnd
-      - php-opcache
-      - php-pdo
-      - php-pear
-      - php-pear-Net-Curl
-      - php-pecl-apcu-bc
-      - php-pecl-redis
-      - php-pecl-zip
-      - php-soap
       - php-xml
+      - php-zip
+      - php-opcache
 verifier:
   name: ansible
 scenario:

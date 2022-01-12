@@ -6,7 +6,6 @@
   vars:
     ansible_user: ansible
   roles:
-    - role: geerlingguy.repo-epel
+    - role: mamono210.httpd_install
     - role: mamono210.php
-    - role: mamono210.mysql_client
     - role: owncloud_install
